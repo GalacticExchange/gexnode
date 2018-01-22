@@ -220,6 +220,7 @@ func (n *Node) Start() error {
 		return err
 	}
 	// Finish initializing the startup
+	n.log.Warn(fmt.Sprintf("!!!!!!!!!!!!!! %v", services))
 	n.services = services
 	n.server = running
 	n.stop = make(chan struct{})

